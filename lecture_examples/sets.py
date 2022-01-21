@@ -1,6 +1,6 @@
 # example of sets, which are similar to lists but do not allow duplicate values
 # the check for duplicate values is done internally. no error will be shown when attempting to add a duplicate value,
-# it just won't show up in the set
+# it just won't show up in the set. order is random for sets
 
 cats = set()
 

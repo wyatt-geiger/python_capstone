@@ -18,7 +18,7 @@ high_temps = [-1, 56, 78, -1, 65, 86, -1]
 
 # make a list of only the valid temperatures
 
-valid_temps = [ temp for temp in high_temps if temp != -1 ]
+valid_temps = [ temp for temp in high_temps if temp != -1 ] # removes all values that are -1
 print(valid_temps)
 
 # convert to celsius
