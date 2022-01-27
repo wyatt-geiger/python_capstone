@@ -24,8 +24,13 @@ def banner(): # banner method which displays a greeting to the user
     stars = '*' * len(message)
     print(f'\n{stars} \n{message} \n{stars}\n') # prints greeting
 
+def instructions(): # prints a message that contains instructions how to use the program
+
+    print('Enter a sentence and this program will convert it to camelcase.')
+
 def main(): # main function
     banner() # calls banner method to greet user
+    instructions() # calls instructions method to tell user what to do
     userText = input('Please enter a string to be parsed: ') # asks for user input
     print(parser(userText)) # prints the result from the parser() function
 main()
