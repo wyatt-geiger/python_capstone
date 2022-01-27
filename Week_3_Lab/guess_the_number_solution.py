@@ -21,7 +21,7 @@ def get_guess():
     while True: # new
         try:
             return int(input('Guess the secret number? '))
-        except Exception as e:
+        except ValueError as v:
             print('You may only enter a number.')
 
 
