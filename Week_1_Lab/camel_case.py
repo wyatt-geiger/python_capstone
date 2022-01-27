@@ -1,8 +1,6 @@
 """This program accepts a user inputted string. It then parses the string to apply camel case to it using
 string manipulation techniques."""
 
-print('Welcome to the camel case parser program!') # greeting
-
 def parser(userInput): # function to work on the user string
     
     string_list = userInput.split() # splits the user string into individual elements in a list
@@ -20,8 +18,14 @@ def parser(userInput): # function to work on the user string
 
     return t # returns the value to be printed out in the main function
 
+def banner(): # banner method which displays a greeting to the user
+
+    message = 'Welcome to the camel case parser program!'
+    stars = '*' * len(message)
+    print(f'\n{stars} \n{message} \n{stars}\n') # prints greeting
 
 def main(): # main function
+    banner() # calls banner method to greet user
     userText = input('Please enter a string to be parsed: ') # asks for user input
     print(parser(userText)) # prints the result from the parser() function
 main()
