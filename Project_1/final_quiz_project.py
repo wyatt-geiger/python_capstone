@@ -33,6 +33,12 @@ class Topic: # topic class which contains initialization method, select_topic me
         # if the two match, lines of code are fired to add questions and answers to the empty dictionary
         # This if block would have to be manually updated if the programmer wanted to add more subjects and/or questions
 
+        # in general, a dictionary initializer would be less code than individual lines,
+        #     self.question_list = { 'Who painted the Mona Lisa?': 'Leonardo Da Vinci',
+        #        'What precious stone is used to make the artist\'s pigment ultramarine?': 'Lapiz lazuli'
+        #        .... etc 
+        #       }
+
     def ask_questions(self): # __str__ should be used to print a string representation of an object, often for debugging. 
         #  use a regular method for this task 
 
