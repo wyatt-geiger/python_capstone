@@ -2,46 +2,51 @@
 topic, the program goes through a dictionary of questions and tallies the score if the answer was correct. The results of the quiz
 are printed out at the end."""
 
+art_questions = {
+    'Who painted the Mona Lisa?': 'Leonardo Da Vinci',
+    'What precious stone is used to make the artist\'s pigment ultramarine?': 'Lapiz lazuli'
+}
+
+space_questions = {
+    'Which planet is closest to the sun?': 'Mercury',
+    'Which planet spins in the opposite direction to all the others in the solar system? ': 'Venus'
+    }   
+
+
 class Topic: # topic class which contains initialization method, select_topic method, and string method
-    def __init__(self, theme): # initialization method
+    def __init__(self, theme, questions): # initialization method - consider passing in the topic's questions 
         self.theme = theme.capitalize() 
         # theme variable which stores the topic. capitalize method is used for displaying the theme back to the user
         # and also to compare to the subjects in the if statements within select_topic
-        self.question_list = {}
+        self.question_dictionary = questions  # if it's not a list, avoid list as part of the variable name.  
+        # Or this could be called something like questions_and_answers ? 
         # initializes an empty dictionary, which will store the questions and answers
 
     def select_topic(self): # select_topic method, which stores each subject and appends questions and answers to the empty dictionary
 
         print(f'-----\nYour selected quiz topic is: {self.theme}\n-----') # message showing user's selection
-        
-        if self.theme == 'Art':
-            self.question_list['Who painted the Mona Lisa? '] = 'Leonardo Da Vinci'
-            self.question_list['What precious stone is used to make the artist\'s pigment ultramarine? '] = 'Lapiz lazuli'
-            self.question_list['Anish Kapoor\'s bean-shaped Cloud Gate scuplture is a landmark of which city? '] = 'Chicago'
-            self.question_list['Which kid\'s TV characters are named after Renaissance artists? '] = 'Teenage Mutant Ninja Turtles'
-            self.question_list['The graphite in an artist\'s pencil is made of what chemical element? '] = 'Carbon'
-        elif self.theme == 'Space':
-            self.question_list['Which planet is closest to the sun? '] = 'Mercury'
-            self.question_list['Which planet spins in the opposite direction to all the others in the solar system? '] = 'Venus'
-            self.question_list['How many moons does Mars have? '] = '2'
-            self.question_list['What was the first human-made object to leave the solar system? '] = 'Voyager 1'
-            self.question_list['When an asteroid enters the Earth\'s atmosphere and burns up, it is known as what? '] = 'Meteor'
-        elif self.theme == 'Sports':
-            self.question_list['Which gymnast is the "triple-twisting double-tucked salto backwards" skill named after?'] = 'Simone Biles'
-            self.question_list['Which country has won the soccer world cup the most times?'] = 'Brazil'
-            self.question_list['What does MLB stand for?'] = 'Major League Baseball'
-        
+                
+
+        # how would you manage a quiz with hundreds of questions? Consider providng the 
+        # Topic with the questions when you create a Topic object.
         # this if block looks at the capitalized topic the user entered, and compares it to a string literal
         # if the two match, lines of code are fired to add questions and answers to the empty dictionary
         # This if block would have to be manually updated if the programmer wanted to add more subjects and/or questions
 
-    def __str__(self): # string method to be printed out to the user
+        # in general, a dictionary initializer would be less code than individual lines,
+        #     self.question_list = { 'Who painted the Mona Lisa?': 'Leonardo Da Vinci',
+        #        'What precious stone is used to make the artist\'s pigment ultramarine?': 'Lapiz lazuli'
+        #        .... etc 
+        #       }
+
+    def ask_questions(self): # __str__ should be used to print a string representation of an object, often for debugging. 
+        #  use a regular method for this task 
 
         score = 0 # initializes a score variable to 0
 
-        max_score = len(self.question_list) # initializes a max_score variable which looks at the length of the dictionary
+        max_score = len(self.question_dictionary) # initializes a max_score variable which looks at the length of the dictionary
 
-        for question, answer in self.question_list.items(): # for loop which iterates over the dictionary
+        for question, answer in self.question_dictionary.items(): # for loop which iterates over the dictionary
             
             print(question) # prints the key, or the question
             reply = input('Enter your answer: ') # stores the user input to the question in a variable
@@ -66,7 +71,11 @@ class Topic: # topic class which contains initialization method, select_topic me
 
 def main(): # main function
 
-    topic_list = ['Art', 'Space', 'Sports'] 
+    question_bank = { 
+        'Art': Topic('Art', art_questions),
+        'Space': Topic('Space', space_questions) }
+
+    topic_list = question_bank.keys()
     # initializes a list of topics. This list serves 2 purposes:
     # First, it is displayed to the user in a formatted list
     # Second, validation is used to determine if the user inputted a valid topic from this list
@@ -80,19 +89,21 @@ def main(): # main function
     print(f'Which topic would you like to pick? Available topics: {format_list}')
     # user's topic choices using the formatted list
     
-    topic = input(f'Enter your topic choice: ') # program asks for user's topic choice
+    topic = input(f'Enter your topic choice: ').capitalize() # program asks for user's topic choice
 
     while topic.capitalize() not in topic_list:
         print('That is not a valid topic.')
-        topic = input(f'Enter your topic choice: ')
+        topic = input(f'Enter your topic choice: ').capitalize()
     # this while loop uses the capitalize method to alter the user input so that it would match a topic in the list, essentially ignoring letter case
     # while loop continues to ask the question until a valid topic is entered
 
-    topic_result = Topic(topic.lower())
+    # topic_result = Topic(topic.lower())
+    quiz_topic = question_bank[topic]
     # this line lowercases the user input to be placed in the Topic class, which is then placed into the topic_result variable
-
-    topic_result.select_topic()
+    
+    # topic_result.select_topic()
     # this line uses topic_result to call upon the select_topic() method, which checks the user input and matches it with a topic inside the method
+    topic_result = quiz_topic.ask_questions()
 
     print(topic_result)
     # prints the string method inside the Topic class inside the topic_result variable
